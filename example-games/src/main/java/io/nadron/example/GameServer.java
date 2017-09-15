@@ -1,15 +1,6 @@
 package io.nadron.example;
 
-import io.nadron.app.GameRoom;
-import io.nadron.app.Task;
-import io.nadron.example.zombie.domain.World;
-import io.nadron.example.zombie.domain.WorldMonitor;
-import io.nadron.example.zombie.game.ZombieRoom;
 import io.nadron.server.ServerManager;
-import io.nadron.service.TaskManagerService;
-
-import java.util.concurrent.TimeUnit;
-
 import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
