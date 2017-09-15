@@ -1,0 +1,105 @@
+#################
+## Eclipse
+#################
+
+*.pydevproject
+.project
+.metadata
+target/
+test-output
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+*.iml
+.idea/
+logs/
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+
+
+
+############
+## Windows
+############
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+
+#############
+## Python
+#############
+
+*.py[co]
+
+# Packages
+*.egg
+*.egg-info
+
+parts
+var
+sdist
+develop-eggs
+.installed.cfg
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+
+#Translations
+*.mo
+
+#Mr Developer
+.mr.developer.cfg
+
+# Mac crap
+.DS_Store
+/target
+.extract/
+
+# MCD Download File
+mcd-server/src/main/webapp/nav
+mcd-server/src/main/webapp/QR
+
+mcd-server/target/
+mcd-server/cache/
+mcd-server/tmp/
+mcd-client/target/
+mcd-client/tmp/
+mcd-common/target/
+mcd-biz/target/
+
+
+
+!nginx-1.9.9/logs
+nginx-1.9.9/logs/*
+!nginx-1.9.9/logs/1
+!nginx-1.9.9/temp/client_body_temp/1/1.txt
+nginx-1.9.9/temp/*
+
+dependency-reduced-pom.xml
+storage
+
