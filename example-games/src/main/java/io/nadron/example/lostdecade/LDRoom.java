@@ -170,7 +170,7 @@ public class LDRoom extends GameRoomSession {
             // hero's state.
             // A possible optimization here is not to broadcast state in case
             // the hero has not moved.
-            LDGameState newState=new LDGameState(null,
+            LDGameState newState=new LDGameState(state.getEntities(),
                     monster, hero);
             if(isTouching){
                 newState.setOp(LDOpeartion.Kill);

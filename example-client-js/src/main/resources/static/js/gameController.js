@@ -41,13 +41,24 @@ angular.module('GameApp', [])
       var config = {
          user: "user",
          pass: "pass",
-         nick: "DemoUser",
+         nick: chance.name(),
          connectionKey: "LDGameRoom"
       };
       $scope.config = config;
       // connect to remote Nadron server.
       $scope.startGame = function () {
+        canvas.focus();
+         $scope.started = true;
          nad.sessionFactory("ws://localhost:18090/nadsocket", config, sessionCreationCallback);
+      }
+
+      var updateRankList=function(me,players){
+        $timeout(function(){
+          var rankMap={};
+          var userRank=[];
+        });
+          console.log(me);
+          console.log(players);
       }
       var messages = [];
       $scope.messages = messages;
@@ -178,7 +189,7 @@ angular.module('GameApp', [])
                   source: source,
                   hero: source.hero,
                   text: message,
-                  time:new Date().getTime()
+                  time: new Date().getTime()
                })
             })
 

@@ -54,29 +54,40 @@
         </nav>
 
         <!-- Begin page content -->
-        <div class="container">
+        <div class="site-wrapper">
             <div class="mt-3">
                 <h1>Game Demo</h1>
             </div>
 
-            <div class="row">
-                <div id="gameCanvas" class="col-md-6"></div>
-                <div class="col-md-6">
-                    <input class="form-control" ng-model="config.nick" placeholder="input user name"/>
-                    <button class="btn btn-primary" type="button" ng-click="startGame()">Start Game!</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 log">
+            <div class="row justify-content-md-center">
+                <div id="gameCanvas" class="col-md-auto text-center"></div>
+                <div class="col-md-4 log" ng-if="started">
+                    <h2>得分榜:</h2>
+                    <hr/>
                     <div class="alert alert-info" ng-repeat="message in messages" role="alert">
-                      <small>
-                       {{message.time | date :'HH:mm:ss'}}
-                      </small>
-                       <strong>
-                        {{message.hero.name}}
-                       </strong> {{message.text}}
+                        <small>
+                            {{message.time | date :'HH:mm:ss'}}
+                        </small>
+                        <strong>
+                            {{message.hero.name}}
+                        </strong>
+                        {{message.text}}
                     </div>
-
+                </div>
+                <div ng-if="started" class="w-100"></div>
+                <div class="col-md-6 log">
+                    <input class="form-control" ng-disabled="started" ng-model="config.nick" placeholder="input user name"/>
+                    <button ng-if="!started" class="btn btn-primary" type="button" ng-click="startGame()">Start Game!</button>
+                    <hr/>
+                    <div class="alert alert-info" ng-repeat="message in messages" role="alert">
+                        <small>
+                            {{message.time | date :'HH:mm:ss'}}
+                        </small>
+                        <strong>
+                            {{message.hero.name}}
+                        </strong>
+                        {{message.text}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,6 +99,8 @@
         </footer>
         <script src="js/nad-0.1.js"></script>
         <script src="js/lib/angular.js"></script>
+        <script src="js/lib/chance.min.js"></script>
+
         <script src="js/gameController.js"></script>
         <script src="js/game.js"></script>
         <script src="js/main.js"></script>
