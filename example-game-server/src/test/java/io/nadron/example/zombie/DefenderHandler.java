@@ -79,7 +79,6 @@ public class DefenderHandler extends SimpleChannelInboundHandler<Event>
 			// Connect the UDP
 			Runnable runnable = new Runnable()
 			{
-				@Override
 				public void run()
 				{
 					udpClient.start(c);

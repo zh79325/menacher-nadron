@@ -21,8 +21,9 @@
         <module>nadron</module>
         <module>nadclient</module>
         <!--<module>nadclient-as3</module>-->
-        <module>example-games</module>
+        <module>example-game-server</module>
         <module>example-client-js</module>
+        <module>example-cluster-game-server</module>
     </modules>
     <packaging>pom</packaging>
 
