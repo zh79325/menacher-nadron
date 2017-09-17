@@ -4,7 +4,7 @@ import io.nadron.event.Event;
 import io.nadron.event.EventContext;
 
 import java.io.Serializable;
-
+import java.util.Map;
 
 
 public class DefaultEvent implements Event, Serializable
@@ -17,6 +17,7 @@ public class DefaultEvent implements Event, Serializable
 	protected EventContext eventContext;
 	protected int type;
 	protected Object source;
+	protected Map<String,Object> extend;
 	protected long timeStamp;
 	private String cName;
 	

@@ -4,17 +4,13 @@ import io.nadron.app.PlayerSession;
 import io.nadron.app.Session;
 import io.nadron.communication.DeliveryGuaranty;
 import io.nadron.communication.MessageSender.Fast;
-import io.nadron.event.ConnectEvent;
-import io.nadron.event.Event;
-import io.nadron.event.Events;
-import io.nadron.event.NetworkEvent;
-import io.nadron.event.SessionEventHandler;
+import io.nadron.event.*;
 import io.nadron.service.SessionRegistryService;
 import io.nadron.util.NadronConfig;
-import static io.nadron.communication.DeliveryGuaranty.DeliveryGuarantyOptions.FAST;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static io.nadron.communication.DeliveryGuaranty.DeliveryGuarantyOptions.FAST;
 
 
 /**
@@ -121,12 +117,13 @@ public class DefaultSessionEventHandler implements SessionEventHandler
 		if (!session.isWriteable())
 			return;
 		DeliveryGuaranty guaranty = event.getDeliveryGuaranty();
+		Object sendResult=null;
 		if (guaranty.getGuaranty() == FAST.getGuaranty())
 		{
 			Fast udpSender = session.getUdpSender();
 			if (null != udpSender)
 			{
-				udpSender.sendMessage(event);
+				sendResult=	udpSender.sendMessage(event);
 			}
 			else
 			{
@@ -137,8 +134,9 @@ public class DefaultSessionEventHandler implements SessionEventHandler
 		}
 		else
 		{
-			session.getTcpSender().sendMessage(event);
+			sendResult=	session.getTcpSender().sendMessage(event);
 		}
+		LOG.trace("{}",sendResult);
 	}
 	
 	protected void onLoginSuccess(Event event)

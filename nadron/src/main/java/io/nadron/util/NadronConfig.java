@@ -9,5 +9,5 @@ public class NadronConfig
 	 * By default wait for 5 minutes for remote client to reconnect, before
 	 * closing session.
 	 */
-	public static final int DEFAULT_RECONNECT_DELAY =  5 * 60 * 1000;
+	public static final int DEFAULT_RECONNECT_DELAY =  10*1000;//5 * 60 * 1000;
 }

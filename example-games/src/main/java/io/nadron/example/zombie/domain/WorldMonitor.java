@@ -33,13 +33,11 @@ public class WorldMonitor implements Task
 		this.world = world;
 	}
 
-	@Override
 	public Object getId()
 	{
 		return id;
 	}
 
-	@Override
 	public void run()
 	{
 		if(world.apocalypse())
@@ -68,7 +66,6 @@ public class WorldMonitor implements Task
 		world.report();
 	}
 
-	@Override
 	public void setId(Object id)
 	{
 		this.id = id;

@@ -15,19 +15,14 @@ import io.nadron.service.impl.ReconnectSessionRegistry;
 import io.nadron.util.Credentials;
 import io.nadron.util.NadronConfig;
 import io.nadron.util.SimpleCredentials;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.*;
 import io.netty.channel.ChannelHandler.Sharable;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-
-import java.util.List;
-
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * This login handler will parse incoming login events to get the
@@ -67,6 +62,7 @@ public class WebSocketLoginHandler extends SimpleChannelInboundHandler<TextWebSo
 			credList = (List) event.getSource();
 			Player player = lookupPlayer(credList.get(0), credList.get(1));
 			handleLogin(player, channel);
+			player.setName(credList.get(3));
 			handleGameRoomJoin(player, channel, credList.get(2));
 		}
 		else if (type == Events.RECONNECT)

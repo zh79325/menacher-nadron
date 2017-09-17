@@ -58,6 +58,9 @@ public class Entity implements Serializable
 	 */
 	int score;
 
+	private String name;
+
+
 	public Entity()
 	{
 
@@ -151,5 +154,11 @@ public class Entity implements Serializable
 		this.press = press;
 	}
 
+	public String getName() {
+		return name;
+	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 }

@@ -24,11 +24,14 @@ public class LDGameState implements Serializable
 	private Entity monster;
 	private Entity hero;
 	private boolean reset;
+	private LDOpeartion op;
 	
 	public LDGameState()
 	{
 		
 	}
+
+
 	
 	public LDGameState(Set<Entity> entities, Entity monster, Entity hero)
 	{
@@ -85,5 +88,12 @@ public class LDGameState implements Serializable
 		this.entities = entities;
 	}
 
+	public LDOpeartion getOp() {
+		return op;
+	}
+
+	public void setOp(LDOpeartion op) {
+		this.op = op;
+	}
 }
  

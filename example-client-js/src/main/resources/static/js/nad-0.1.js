@@ -53,10 +53,10 @@
             timeStamp : new Date().getTime()
         };
     };
-    
+
     // Creates a login event object to login to remote Nadron server
     nad.LoginEvent = function (config) {
-        return nad.NEvent(nad.LOG_IN, [config.user, config.pass, config.connectionKey]);
+        return nad.NEvent(nad.LOG_IN, [config.user, config.pass, config.connectionKey,config.nick]);
     };
 
     // If using a differnt protocol, then use this codec chain, to decode and encode incoming and outgoing requests. Something like a Chain of Responsibility pattern.
@@ -120,7 +120,7 @@
         var reconnectKey;
 
         function connectWebSocket(url) {
-            ws = new WebSocket(url);            
+            ws = new WebSocket(url);
             ws.onopen = function() {
                 if (state === 0) {
                     ws.send(message);
@@ -132,7 +132,7 @@
                     dispatch(nad.EXCEPTION, evt);
                 }
             };
-        
+
             // Login to Nadron server when the start event is received the callback will return the session.
             ws.onmessage = function (e) {
                 var loginDecoder = (typeof config.loginDecoder === 'undefined') ? nad.Codecs.decoder : config.loginDecoder;
@@ -156,7 +156,7 @@
             };
 
             ws.onclose = function (e) {
-                state = 2;  
+                state = 2;
                 dispatch(nad.DISCONNECT, nad.NEvent(nad.DISCONNECT, e, me));
             };
 
@@ -178,7 +178,7 @@
 
         me.send = function (evt) {
             if(state !== 1 && !((evt.type === nad.RECONNECT) && (state === 2))){
-               throw new Error("Session is not in connected state"); 
+               throw new Error("Session is not in connected state");
             }
             ws.send( me.outCodecChain.transform(evt) ); // <= send JSON/Binary data to socket server
             return me; // chainable
@@ -189,7 +189,7 @@
             callbacks[eventName].push(callback);
             return me;// chainable
         };
-        
+
         me.removeHandler = function(eventName, handler) {
             removeFromArray(callbacks[eventName], handler);
         };
@@ -200,28 +200,28 @@
             me.onmessage = doNothing;
             me.onclose = doNothing;
         };
-        
+
         me.close = function () {
             state = 3;
             ws.close();
             dispatch(nad.CLOSED, nad.NEvent(nad.CLOSED));
         };
-        
-        me.disconnect = function () { 
+
+        me.disconnect = function () {
             state = 2;
             ws.close();
         };
-        
+
         me.reconnect = function (callback) {
             if (state !== 2) {
-                throw new Error("Session is not in not-connected state. Cannot reconnect now"); 
+                throw new Error("Session is not in not-connected state. Cannot reconnect now");
             }
             onStart = callback;
-            ws = connectWebSocket(url);      
+            ws = connectWebSocket(url);
         };
-        
+
         me.setState = function (newState) {state = newState};
-        
+
         function dispatch(eventName, evt) {
             if (typeof evt.target === 'undefined') {
                 evt.target = me;
@@ -235,34 +235,34 @@
             dispatchToEventHandlers(callbacks[nad.ANY], evt);
             dispatchToEventHandlers(callbacks[eventName], evt);
         }
-        
+
         function dispatchToEventHandlers(chain, evt) {
             if(typeof chain === 'undefined') return; // no callbacks for this event
             for(var i = 0; i < chain.length; i++){
               chain[i]( evt );
             }
         }
-        
+
         function getLogin(config) {
             var loginEncoder = (typeof config.loginEncoder === 'undefined') ? nad.Codecs.encoder : config.loginEncoder;
             return loginEncoder.transform(nad.LoginEvent(config));
         }
-        
+
         function getReconnect(config) {
             if (typeof reconnectKey === 'undefined') throw new Error("Session does not have reconnect key");
             var loginEncoder = (typeof config.loginEncoder === 'undefined') ? nad.Codecs.encoder : config.loginEncoder;
             return loginEncoder.transform(nad.NEvent(nad.RECONNECT, reconnectKey));
         }
-        
+
         function applyProtocol(config) {
             ws.onmessage = (typeof config.protocol === 'undefined') ? protocol : config.protocol;
         }
-        
+
         function protocol(e) {
             var evt = me.inCodecChain.transform(e.data);
             dispatch(evt.type, evt);
         }
-        
+
         function doNothing(evt) {}
     }
 

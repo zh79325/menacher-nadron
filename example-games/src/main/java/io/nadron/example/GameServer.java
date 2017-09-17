@@ -1,7 +1,6 @@
 package io.nadron.example;
 
 import io.nadron.server.ServerManager;
-import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -14,8 +13,8 @@ public class GameServer
 	
 	public static void main(String[] args)
 	{
-		PropertyConfigurator.configure(System
-				.getProperty("log4j.configuration"));
+//		PropertyConfigurator.configure(System
+//				.getProperty("log4j.configuration"));
 		AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
 		// For the destroy method to work.
 		ctx.registerShutdownHook();
