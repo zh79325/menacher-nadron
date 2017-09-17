@@ -47,18 +47,18 @@ angular.module('GameApp', [])
       $scope.config = config;
       // connect to remote Nadron server.
       $scope.startGame = function () {
-        canvas.focus();
+         canvas.focus();
          $scope.started = true;
          nad.sessionFactory("ws://localhost:18090/nadsocket", config, sessionCreationCallback);
       }
 
-      var updateRankList=function(me,players){
-        $timeout(function(){
-          var rankMap={};
-          var userRank=[];
-        });
-          console.log(me);
-          console.log(players);
+      var updateRankList = function (me, players) {
+         $timeout(function () {
+            var rankMap = {};
+            var userRank = [];
+         });
+         console.log(me);
+         console.log(players);
       }
       var messages = [];
       $scope.messages = messages;
@@ -68,8 +68,8 @@ angular.module('GameApp', [])
       var canvas = document.createElement("canvas");
       var ctx = canvas.getContext("2d");
 
-      canvas.width = 512;
-      canvas.height = 480;
+      canvas.width = 512 ;
+      canvas.height = 480 ;
       document.getElementById('gameCanvas').appendChild(canvas);
       var textHeight = getTextHeight("24px Helvetica").height;
       // Background image
@@ -265,7 +265,21 @@ angular.module('GameApp', [])
          }
 
          if (bgReady) {
-            ctx.drawImage(bgImage, 0, 0);
+            var xNum = canvas.width / 32;
+            var yNum = canvas.height / 32;
+            for (var i = 0; i < xNum; i++) {
+               for (var j = 0; j < yNum; j++) {
+                  if (i * j == 0) {
+                     ctx.drawImage(bgImage, 0, 0, 32, 32, i * 32, j * 32, 32, 32);
+                     continue;
+                  }
+                  if (i == xNum-1||j==yNum-1) {
+                     ctx.drawImage(bgImage, 0, 0, 32, 32, i * 32, j * 32, 32, 32);
+                     continue;
+                  }
+                  ctx.drawImage(bgImage, 32, 32, 32, 32, i * 32, j * 32, 32, 32);
+               }
+            }
          }
 
          if (heroReady) {
