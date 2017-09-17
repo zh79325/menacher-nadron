@@ -48,7 +48,6 @@ public class ZombieHandler extends SimpleChannelInboundHandler<Event>
 			System.out.println("Going to connect UDP in ZombieHandler");
 			Runnable runnable = new Runnable()
 			{
-				@Override
 				public void run()
 				{
 					udpClient.start(c);
