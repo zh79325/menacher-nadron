@@ -136,7 +136,7 @@ public class DefaultSessionEventHandler implements SessionEventHandler
 		{
 			sendResult=	session.getTcpSender().sendMessage(event);
 		}
-		LOG.trace("{}",sendResult);
+//		LOG.trace("{}",sendResult);
 	}
 	
 	protected void onLoginSuccess(Event event)
